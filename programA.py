@@ -26,8 +26,6 @@ socket.send(request.encode())
 
 rcvd_data = socket.recv(buffer_size)
 
-HEADER_OFFSET = 6
-
 # manifest.txt file download
 
 data = b'' # tmp variable
