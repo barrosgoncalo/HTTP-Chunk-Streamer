@@ -9,13 +9,13 @@ def arg_validation():
 BUFFER_SIZE = 1024
 
 def main():
-    if len(argv) != 4:
-        print("Error: wrong number of arguments")
-        exit(1)
+    arg_validation()
 
     _, url, movie_name, results_file_name = argv
 
+    # parse_url
     addr, port = (url.split('/')[2]).split(':')
+
 
     sck = socket(family=AF_INET, type=SOCK_STREAM)
     sck.connect((addr, int(port)))
@@ -23,7 +23,6 @@ def main():
     request = f'GET ./{movie_name}/manifest.txt HTTP/1.0\r\n\r\n'
 
     sck.send(request.encode())
-
     rcvd_data = sck.recv(BUFFER_SIZE)
 
     # manifest.txt file download
@@ -33,6 +32,7 @@ def main():
     while rcvd_data:
         tmp += rcvd_data
         rcvd_data = sck.recv(BUFFER_SIZE)
+
 
     tmp_str = tmp.decode()
     header_end = tmp_str.find("\r\n\r\n")

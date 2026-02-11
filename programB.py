@@ -32,16 +32,17 @@ def read_full_response(sck):
     return data
 
 
-def extract_http_body(response):
-    header_end = fetch_header(response)
-    return response[header_end + 4:]
-
 def fetch_header(response):
     header_end = response.find("\r\n\r\n")
     if header_end == -1:
         print("Invalid HTTP")
         exit(1)
     return header_end
+
+
+def extract_http_body(response):
+    header_end = fetch_header(response)
+    return response[header_end + 4:]
 
 
 def build_request_url(url, movie_name, track_name):

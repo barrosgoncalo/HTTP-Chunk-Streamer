@@ -28,7 +28,7 @@ def producer(buffer, url, movie_name, track):
     for s in range(offset, offset + num_seg):
         segment = fetch_segment(lines, req_url, s)
         buffer.put(segment.content)
-    buffer.put(None)
+    buffer.put(None) # sentinel
 
 
 def parseTrackNumber(track_name):
